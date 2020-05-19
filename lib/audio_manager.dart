@@ -29,12 +29,19 @@ class AudioManager {
   bool get isLoading => _isLoading;
   bool _isLoading = true;
 
+  /// 是否已停止
+  bool get isStop => _isStop;
+  bool _isStop = false;
+
   /// Current playback status
   bool get isPlaying => _playing;
   bool _playing = false;
   void _setPlaying(bool playing) {
     if (_playing == playing) return;
     _playing = playing;
+    if (_playing) {
+      _isStop = false;
+    }
     if (_events != null) {
       _events(AudioManagerEvents.playstatus, _playing);
     }
@@ -289,6 +296,7 @@ class AudioManager {
   stop() {
     _channel.invokeMethod("stop");
     _initialize = false;
+    _isStop = true;
     _duration = Duration(milliseconds: 0);
     _position = Duration(milliseconds: 0);
     _setPlaying(false);
