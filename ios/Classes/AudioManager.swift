@@ -20,7 +20,7 @@ open class AudioManager: NSObject {
     
     private override init() {
         super.init()
-        setRemoteControl()
+        // setRemoteControl()
         NotificationCenter.default.addObserver(self, selector: #selector(volumeChange(n:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     deinit {
